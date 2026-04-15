@@ -29,4 +29,3 @@ function playRound(playerSelection, computerSelection) {
 const playerSelection = "paper";
 const computerSelection = computerPlay();
 console.log(playRound(playerSelection, computerSelection));
-console.log("Hello");
