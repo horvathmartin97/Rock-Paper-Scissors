@@ -1,31 +1,57 @@
-function computerPlay() {
-  const choices = ["Rock", "Paper", "Scissors"];
-  const randomIndex = Math.floor(Math.random() * 3);
-  return choices[randomIndex];
+function generateRandomNumber() {
+  const randomNumber = Math.floor(Math.random() * 100) + 1;
+  return randomNumber;
 }
 
-function playRound(playerSelection, computerSelection) {
-  const player = playerSelection.toLowerCase();
-  const computer = computerSelection.toLowerCase();
-
-  if (player === computer) {
-    return `It's a tie! Both chose ${player}`;
+function getPlayerGuess() {
+  const playerGuess = Number(prompt("Guess a whole number between 1 and 100"));
+  if (Number.isInteger(playerGuess) && playerGuess >= 1 && playerGuess <= 100) {
+    return playerGuess;
   }
-
-  if (player === "rock" && computer === "scissors") {
-    return "You Win! Rock beats Scissors";
-  }
-
-  if (player === "paper" && computer === "rock") {
-    return "You Win! Paper beats Rock";
-  }
-
-  if (player === "scissors" && computer === "paper") {
-    return "You Win! Scissors beats Paper";
-  }
-
-  return `You Lose! ${computer.charAt(0).toUpperCase() + computer.slice(1)} beats ${player.charAt(0).toUpperCase() + player.slice(1)}`;
+  alert("Guess must be a whole number between 1 and 100");
+  return getPlayerGuess();
 }
-const playerSelection = "paper";
-const computerSelection = computerPlay();
-console.log(playRound(playerSelection, computerSelection));
+
+function checkGuess(playerGuess, correctNumber) {
+  if (playerGuess === correctNumber) {
+    return "Correct!";
+  } else if (playerGuess > correctNumber) {
+    return "You were too high";
+  } else {
+    return "You were too low";
+  }
+}
+
+function playGame() {
+  const correctNumber = generateRandomNumber();
+
+  for (let i = 1; i <= 10; i++) {
+    const playerGuess = getPlayerGuess();
+    const result = checkGuess(playerGuess, correctNumber);
+
+    if (result === "correct!") {
+      alert(`You guessed it in ${i} attempt(s)! Good job!`);
+      return;
+    } else {
+      alert(`${result}, you have: ${10 - i} attempts left!`);
+    }
+  }
+
+  alert(`Game over! The correct number was ${correctNumber}`);
+}
+
+function introduce() {
+  const isPlayer = confirm(
+    "Hello there! Are you ready to play a number guessing game with me?",
+  );
+
+  if (!isPlayer) {
+    alert("Goodbye");
+    return;
+  }
+
+  const playerName = prompt("What is your name?") || "Player";
+  alert(`Let's play a round, ${playerName}!`);
+  playGame();
+}
+introduce();
