@@ -29,7 +29,7 @@ function playGame() {
     const playerGuess = getPlayerGuess();
     const result = checkGuess(playerGuess, correctNumber);
 
-    if (result === "correct!") {
+    if (result === "Correct!") {
       alert(`You guessed it in ${i} attempt(s)! Good job!`);
       return;
     } else {
