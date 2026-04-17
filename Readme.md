@@ -20,3 +20,5 @@ A browser-based Rock, Paper, Scissors game built with vanilla JavaScript. Play a
     Win 3+ rounds to beat the computer!
 
 
+Just give it a try!
+https://horvathmartin97.github.io/Rock-Paper-Scissors/
