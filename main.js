@@ -38,10 +38,16 @@ function playRound(playerSelection, computerSelection) {
 function game(){
   let playerScore = 0
   let computerScore = 0
+  let numberOfRounds = 5
   const playerChoices = ["rock", "paper", "scissors"]
+  let playerConfirmation = confirm("You are playing a game of Rock, Paper, Scissors against the computer, Are you ready?")
+  
+  if(!playerConfirmation){
+    return "Game cancelled"
+  }
   
   for(let i = 1; i <= 5; i++){
-    let playerInput = changeToLowerCase(prompt("Pick one weapon(Rock, Paper or Scissors): "))
+    let playerInput = changeToLowerCase(prompt(`You have ${numberOfRounds} rounds, Pick one weapon(Rock, Paper or Scissors): `))
 
     if(!playerInput){
       return "Game cancelled"
@@ -64,10 +70,13 @@ function game(){
 
     if(gameResult[0]){
       playerScore += 1
+      numberOfRounds -= 1
     }else if(gameResult === "tie"){
+      numberOfRounds -= 1
       continue
     }else{
       computerScore += 1
+      numberOfRounds -= 1
     }
 
   }
