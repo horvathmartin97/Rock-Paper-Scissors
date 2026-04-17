@@ -4,9 +4,17 @@ function computerPlay() {
   return choices[randomIndex];
 }
 
+function changeToLowerCase(str){
+  if(str){
+    return str.toLowerCase()
+  }
+
+  return false
+}
+
 function playRound(playerSelection, computerSelection) {
-  const player = playerSelection.toLowerCase();
-  const computer = computerSelection.toLowerCase();
+  const player = playerSelection
+  const computer = computerSelection
 
 
   switch(true){
@@ -33,18 +41,26 @@ function game(){
   const playerChoices = ["rock", "paper", "scissors"]
   
   for(let i = 1; i <= 5; i++){
-    let playerInput = prompt("Pick one weapon(Rock, Paper or Scissors): ").toLowerCase()
+    let playerInput = changeToLowerCase(prompt("Pick one weapon(Rock, Paper or Scissors): "))
+
+    if(!playerInput){
+      return "Game cancelled"
+    }
   
     while(true){
       if(playerChoices.includes(playerInput)){
         break; 
       }
+
+      if(!playerInput){
+        return "Game cancelled"
+      }
   
-      playerInput = prompt("Wrong input. Pick a valid weapon(Rock, Paper or Scissors): ").toLowerCase()
+      playerInput = changeToLowerCase(prompt("Wrong Input, Pick one weapon(Rock, Paper or Scissors): "))
     }
 
     const computerSelection = computerPlay()
-    let gameResult = playRound(playerInput, computerSelection) //* [true, "You win!"] || [false, "You lose!"] || "tie"
+    let gameResult = playRound(playerInput, computerSelection) 
 
     if(gameResult[0]){
       playerScore += 1
