@@ -4,20 +4,13 @@ function computerPlay() {
   return choices[randomIndex];
 }
 
-function changeToLowerCase(str){
-  if(str){
-    return str.toLowerCase()
-  }
-
-  return false
-}
 
 function playRound(playerSelection, computerSelection) {
   const player = playerSelection
   const computer = computerSelection
 
 
-  switch(true){
+  switch (true) {
     case (player === computer):
       return "tie"
 
@@ -35,58 +28,73 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-function game(){
+function getPlayerChoice(playerScore, computerScore, numberOfRounds) {
+
+  const playerChoices = ["rock", "paper", "scissors"];
+  while (true) {
+    const input = prompt(`You have ${numberOfRounds} rounds and your score is ${playerScore} and computer score is ${computerScore}. Pick one weapon (Paper, Rock, Scissors). `)
+    if (input === null) {
+      return null;
+    }
+    const choice = input.trim().toLowerCase()
+    if (choice === "") {
+      alert("Empty Input not allowed")
+      continue;
+    }
+
+    if (playerChoices.includes(input)) {
+      return choice;
+    }
+    alert("Wrong input! Pick a weapon (Rock, Paper, SCissors)");
+  }
+  
+
+}
+
+function game() {
   let playerScore = 0
   let computerScore = 0
   let numberOfRounds = 5
   const playerChoices = ["rock", "paper", "scissors"]
   let playerConfirmation = confirm("You are playing a game of Rock, Paper, Scissors against the computer, Are you ready?")
-  
-  if(!playerConfirmation){
+
+  if (!playerConfirmation) {
     return "Game cancelled"
   }
-  
-  for(let i = 1; i <= 5; i++){
-    let playerInput = changeToLowerCase(prompt(`You have ${numberOfRounds} rounds, Pick one weapon(Rock, Paper or Scissors): `))
 
-    if(!playerInput){
-      return "Game cancelled"
-    }
-  
-    while(true){
-      if(playerChoices.includes(playerInput)){
-        break; 
+  for (let i = 1; i <= 5; i++) {
+    let playerInput = getPlayerChoice(playerScore, computerScore, numberOfRounds);
+    if (playerInput === null) {
+      const isConfirmed = confirm ("Are you sure you wanna quit the game?");
+      if(isConfirmed){
+        alert("Game cancelled");
+        return;
       }
-
-      if(!playerInput){
-        return "Game cancelled"
-      }
-  
-      playerInput = changeToLowerCase(prompt("Wrong Input, Pick one weapon(Rock, Paper or Scissors): "))
+      continue;
     }
 
     const computerSelection = computerPlay()
-    let gameResult = playRound(playerInput, computerSelection) 
+    let gameResult = playRound(playerInput, computerSelection)
 
-    if(gameResult[0]){
+    if (gameResult[0]) {
       playerScore += 1
       numberOfRounds -= 1
-    }else if(gameResult === "tie"){
+    } else if (gameResult === "tie") {
       numberOfRounds -= 1
       continue
-    }else{
+    } else {
       computerScore += 1
       numberOfRounds -= 1
     }
 
   }
 
-  if(playerScore === computerScore){
-      return "It was a Tie!"
-    }else if(playerScore > computerScore){
-      return `You win! You won ${playerScore} games`
-    }else{
-      return `Computer wins! Computer won ${computerScore} games`
-    }
+  if (playerScore === computerScore) {
+    return alert("It was a Tie!")
+  } else if (playerScore > computerScore) {
+    return alert(`You win! You won ${playerScore} games`)
+  } else {
+    return alert(`Computer wins! Computer won ${computerScore} games`)
+  }
 }
-console.log(game())
+game()
