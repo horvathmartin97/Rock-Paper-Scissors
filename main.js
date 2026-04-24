@@ -36,13 +36,14 @@ function getPlayerChoice(playerScore, computerScore, numberOfRounds) {
     if (input === null) {
       return null;
     }
-    const choice = input.trim().toLowerCase()
+    const choice = input.toLowerCase().trim()
+
     if (choice === "") {
       alert("Empty Input not allowed")
       continue;
     }
 
-    if (playerChoices.includes(input)) {
+    if (playerChoices.includes(choice)) {
       return choice;
     }
     alert("Wrong input! Pick a weapon (Rock, Paper, SCissors)");
